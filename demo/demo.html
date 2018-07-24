@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <link href="../jquery.image-label.css" rel="stylesheet">
+</head>
+<body>
+<button id="btnCreate">新增</button>
+<button id="btnSave">保存</button>
+<button id="btnShow">隐藏标签</button>
+    <img src="demo.jpg" style="width:1000px;">
+
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/json2/20160511/json2.min.js"></script>
+    <script src="../jquery.image-label.js"></script>
+    <script>
+
+        //初始化
+        $('img').imageLabel();
+        //加载数据
+        var _arr = JSON.parse(localStorage.getItem('labelArr'));
+        $('img').imageLabel('loadData', {
+            data: _arr
+        });
+        //create
+        $('#btnCreate').click(function(){
+            $('img').imageLabel('create');
+            /*$('img').imageLabel('create', {
+                text: '勒布朗詹姆士'
+            });*/
+        });
+        //save
+        $('#btnSave').click(function(){
+            var data = $('img').imageLabel('getData');
+            localStorage.setItem('labelArr', JSON.stringify(data));
+        });
+        //toggle
+        $('#btnShow').click(function(){
+            var isShow = $(this).attr('_flag');
+            isShow = typeof(isShow)=='undefined'?1:isShow;
+            if (isShow && isShow==1){
+                $(this).text('展示标签');
+                $('img').imageLabel('hide');
+                $(this).attr('_flag', 0);
+            }else{
+                $(this).text('隐藏标签');
+                $('img').imageLabel('show');
+                $(this).attr('_flag', 1);
+            }
+        });
+
+
+    </script>
+</body>
+</html>
