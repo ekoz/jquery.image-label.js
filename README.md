@@ -27,5 +27,5 @@ $('#btnSave').click(function(){
 });
 ```
 ### Demo
-[单击这里](demo/demo.html)
+[单击这里](http://ekoz.github.io/jquery.image-label.js/demo/demo.html)
 ![demo](demo/demo.gif)
