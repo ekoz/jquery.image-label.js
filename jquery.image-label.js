@@ -115,7 +115,6 @@
             var _labelHtml = '<div _index="' + _ind + '" class="kbs-label kbs-label-arrow kbs-label-arrow-left kbs-label-black ' + _class +  '" draggable="true">' + _text + '</div>';
             area.append(_labelHtml);
             var _label = area.find('.' + _class);
-            console.log(opts);
             _label.css({
                 top: opts.top,
                 left: opts.left
