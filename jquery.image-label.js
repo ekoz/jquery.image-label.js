@@ -27,9 +27,9 @@
          * @param elem img 元素
          */
         init: function(elem){
-            if ($(elem).parent('.kbs-area').length==0){
-                $(elem).wrap('<div class="kbs-area"></div>');
-                area = $(elem).parent('.kbs-area');
+            if ($(elem).parent('.kbs-label-area').length==0){
+                $(elem).wrap('<div class="kbs-label-area"></div>');
+                area = $(elem).parent('.kbs-label-area');
                 this.debug('image-label plugins initialized.');
                 //面板监听
                 area.on({
@@ -103,22 +103,25 @@
         create: function(elem, opts){
             var _ind = area.find('.kbs-label').length;
             _ind++;
+            var _top = $(elem).get(0).offsetTop + 10;
+            var _left = $(elem).get(0).offsetLeft + 30;
             opts = $.extend({
-                text: '新建标签_' + _ind
+                text: '新建标签_' + _ind,
+                top: _top,
+                left: _left
             }, opts);
             var _class = 'kbs-label-' + _ind;
             var _text = opts.text;
             var _labelHtml = '<div _index="' + _ind + '" class="kbs-label kbs-label-arrow kbs-label-arrow-left kbs-label-black ' + _class +  '" draggable="true">' + _text + '</div>';
             area.append(_labelHtml);
-            var _top = $(elem).get(0).offsetTop + 10;
-            var _left = $(elem).get(0).offsetLeft + 30;
             var _label = area.find('.' + _class);
+            console.log(opts);
             _label.css({
-                top: _top,
-                left: _left
+                top: opts.top,
+                left: opts.left
             });
-            _label.attr('_top', _top);
-            _label.attr('_left', _left);
+            _label.attr('_top', opts.top);
+            _label.attr('_left', opts.left);
         },
         hide: function(elem, opts){
             area.find('.kbs-label').hide();
@@ -140,7 +143,7 @@
             if (key==undefined || typeof key!='string'){
                 builder.init(_this);
             }else{
-                if ($(_this).parent('.kbs-area').length==0) builder.init(_this);
+                if ($(_this).parent('.kbs-label-area').length==0) builder.init(_this);
                 return builder.fire(key, _this, opts);
             }
         }
