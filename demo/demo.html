@@ -55,7 +55,7 @@
         $.contextMenu({
             selector: '.kbs-label-area',
             callback: function(key, options) {
-                var e = window.event;
+                var e = window.event || arguments[0];
                 $('img').imageLabel('create', {
                     top: e.clientY,
                     left: e.clientX

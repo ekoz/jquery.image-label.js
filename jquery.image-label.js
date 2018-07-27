@@ -35,17 +35,17 @@
                 area.on({
                     'drop': function(e){
                         e.preventDefault();
-
+                        e.stopPropagation();
                         var dataTransfer = e.dataTransfer || e.originalEvent.dataTransfer;
                         var data = dataTransfer.getData("Text");
                         if (data!='kbs-drag-active') return false;
                         var _label = $('.' + data);
                         _label.css({
-                            left: e.clientX,
-                            top: e.offsetY
+                            left: e.clientX || e.originalEvent.clientX,
+                            top: e.offsetY || e.originalEvent.clientY
                         })
-                        _label.attr('_top', e.offsetY);
-                        _label.attr('_left', e.clientX);
+                        _label.attr('_top', e.offsetY || e.originalEvent.clientY);
+                        _label.attr('_left', e.clientX || e.originalEvent.clientX);
                         $(this).append($('.' + data));
                         $('.' + data).removeClass('kbs-drag-active');
                     },
