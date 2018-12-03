@@ -6,6 +6,8 @@
 ;(function($){
 
     var area = null;
+    var _dragLeft = 0;  //临时变量，拖拽开始记录鼠标与标签左侧边距
+    var _dragTop = 0;   //临时变量，拖拽开始记录鼠标与标签上侧边距
 
     var builder = {
         debug: function(o){
@@ -40,12 +42,14 @@
                         var data = dataTransfer.getData("Text");
                         if (data!='kbs-drag-active') return false;
                         var _label = $('.' + data);
+                        var _left = (e.clientX || e.originalEvent.clientX) - _dragLeft;
+                        var _top = (e.clientY || e.originalEvent.clientY) - _dragTop;
                         _label.css({
-                            left: e.clientX || e.originalEvent.clientX,
-                            top: e.offsetY || e.originalEvent.clientY
-                        })
-                        _label.attr('_top', e.offsetY || e.originalEvent.clientY);
-                        _label.attr('_left', e.clientX || e.originalEvent.clientX);
+                            left: _left,
+                            top: _top
+                        });
+                        _label.attr('_left', _left);
+                        _label.attr('_top', _top);
                         $(this).append($('.' + data));
                         $('.' + data).removeClass('kbs-drag-active');
                     },
@@ -59,6 +63,9 @@
                     $(_this).addClass('kbs-drag-active');
                     var dataTransfer = e.dataTransfer || e.originalEvent.dataTransfer;
                     dataTransfer.setData("Text", 'kbs-drag-active');
+                    // 计算鼠标位置与 .kbs-label 之间的左上边距，在 drag stop 时需要调整
+                    _dragLeft = e.clientX - _this.offsetLeft;
+                    _dragTop = e.clientY - _this.offsetTop;
                 });
                 area.on('dblclick', '.kbs-label', function(e){
                     $(this).prop('contenteditable', true);

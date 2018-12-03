@@ -7,9 +7,9 @@
     <link href="../jquery.image-label.css" rel="stylesheet">
 </head>
 <body>
-<button id="btnCreate">新增</button>
-<button id="btnSave">保存</button>
-<button id="btnShow">隐藏标签</button>
+    <button id="btnCreate">新增</button>
+    <button id="btnSave">保存</button>
+    <button id="btnShow">隐藏标签</button>
     <img src="demo.jpg" style="width:1000px;">
 
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
@@ -57,8 +57,8 @@
             callback: function(key, options) {
                 var e = window.event || arguments[0];
                 $('img').imageLabel('create', {
-                    top: e.clientY,
-                    left: e.clientX
+                    top: $('.context-menu-list')[0].offsetTop || e.clientY,
+                    left: $('.context-menu-list')[0].offsetLeft || e.clientX
                 });
             },
             items: {

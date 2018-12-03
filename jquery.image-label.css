@@ -7,7 +7,6 @@
     min-height: 24px;
     text-align: center;
     padding: 4px 8px;
-    text-align: center;
     border-radius: 6px;
 }
 .kbs-label-arrow::before,.kbs-label-arrow::after{
@@ -15,7 +14,7 @@
     display: block;
     position: absolute;
     width: 0;
-    height: 0px;
+    height: 0;
     border-width: .25rem;
     border-style: solid;
 }
